@@ -62,4 +62,5 @@ runs:
       env:
         NUGET_AUTH_TOKEN: ${{ inputs.nuget_auth_token }}
 
-    - run: git checkout -- global.json
+    - shell: bash
+      run: git checkout -- global.json

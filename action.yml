@@ -1,0 +1,65 @@
+name: "setup-dotnet"
+
+description: "A wrapper around the offical actions/setup-dotnet action with extra features"
+
+author: "xt0rted"
+
+branding:
+  icon: "play"
+  color: "green"
+
+inputs:
+  dotnet-version:
+    description: "Optional SDK version(s) to use. If not provided, will install global.json version when available. Examples: 2.2.104, 3.1, 3.1.x"
+    required: false
+
+  source-url:
+    description: "Optional package source for which to set up authentication. Will consult any existing NuGet.config in the root of the repo and provide a temporary NuGet.config using the NUGET_AUTH_TOKEN environment variable as a ClearTextPassword"
+    required: false
+
+  owner:
+    description: "Optional OWNER for using packages from GitHub Package Registry organizations/users other than the current repository's owner. Only used if a GPR URL is also provided in source-url"
+    required: false
+
+  config-file:
+    description: "Optional NuGet.config location, if your NuGet.config isn't located in the root of the repo."
+    required: false
+
+  include-prerelease:
+    description: "Whether prerelease versions should be matched with non-exact versions (for example 5.0.0-preview.6 being matched by 5, 5.0, 5.x or 5.0.x). Defaults to false if not provided."
+    required: false
+
+  nuget_auth_token:
+    description: "Optional authentication token used with `source-url`."
+    required: false
+
+runs:
+  using: "composite"
+
+  steps:
+    - shell: bash
+      run: |
+        case "${{ runner.os }}" in
+          macOS) echo "DOTNET_INSTALL_DIR=/Users/runner/.dotnet" >> $GITHUB_ENV;;
+          Linux) echo "DOTNET_INSTALL_DIR=/usr/share/dotnet" >> $GITHUB_ENV;;
+          Windows) echo "DOTNET_INSTALL_DIR=C:\Program Files\dotnet" >> $GITHUB_ENV;;
+          *) echo "::warning::Unsupported runner os: ${{ runner.os }}";;
+        esac
+
+    - shell: pwsh
+      run: |
+        Copy-Item global.json global.json.copy
+        npx -y strip-json-comments-cli global.json.copy > global.json
+        Remove-Item global.json.copy
+
+    - uses: actions/setup-dotnet@v2.0.0
+      with:
+        dotnet-version: ${{ inputs.dotnet-version }}
+        source-url: ${{ inputs.source-url }}
+        owner: ${{ inputs.owner }}
+        config-file: ${{ inputs.config-file }}
+        include-prerelease: ${{ inputs.include-prerelease }}
+      env:
+        NUGET_AUTH_TOKEN: ${{ inputs.nuget_auth_token }}
+
+    - run: git checkout -- global.json

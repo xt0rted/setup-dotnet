@@ -56,11 +56,12 @@ runs:
         fi
 
     - shell: bash
-      if: steps.meta.outputs.has-global-json == 'true'
       run: |
-        cp global.json global.json.copy
-        npx -y strip-json-comments-cli global.json.copy > global.json
-        rm global.json.copy
+        if [ "${{ steps.meta.outputs.has-global-json }}" == "true" ]; then
+          cp global.json global.json.copy
+          npx -y strip-json-comments-cli global.json.copy > global.json
+          rm global.json.copy
+        fi
 
     - uses: actions/setup-dotnet@v2.0.0
       with:
@@ -73,5 +74,7 @@ runs:
         NUGET_AUTH_TOKEN: ${{ inputs.nuget_auth_token }}
 
     - shell: bash
-      if: steps.meta.outputs.has-global-json == 'true'
-      run: git checkout -- global.json
+      run: |
+        if [ "${{ steps.meta.outputs.has-global-json }}" == "true" ]; then
+          git checkout -- global.json
+        fi

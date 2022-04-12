@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 1.0.0
+
 - Use `actions/setup-dotnet` 2.0.0
 - Set `DOTNET_INSTALL_DIR` based on the OS.
   - Prevents pre-installed SDKs from being downloaded and installed a second time.

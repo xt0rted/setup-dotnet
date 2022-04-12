@@ -46,11 +46,21 @@ runs:
           *) echo "::warning::Unsupported runner os: ${{ runner.os }}";;
         esac
 
-    - shell: pwsh
+    - shell: bash
+      id: meta
       run: |
-        Copy-Item global.json global.json.copy
+        if [[ -f "global.json" ]]; then
+          echo "::set-output name=has-global-json::true"
+        else
+          echo "::set-output name=has-global-json::false"
+        fi
+
+    - shell: bash
+      if: steps.meta.outputs.has-global-json
+      run: |
+        cp global.json global.json.copy
         npx -y strip-json-comments-cli global.json.copy > global.json
-        Remove-Item global.json.copy
+        rm global.json.copy
 
     - uses: actions/setup-dotnet@v2.0.0
       with:
@@ -63,4 +73,5 @@ runs:
         NUGET_AUTH_TOKEN: ${{ inputs.nuget_auth_token }}
 
     - shell: bash
+      if: steps.meta.outputs.has-global-json
       run: git checkout -- global.json

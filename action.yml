@@ -1,6 +1,6 @@
 name: "setup-dotnet"
 
-description: "A wrapper around the offical actions/setup-dotnet action with extra features"
+description: "A wrapper around the official actions/setup-dotnet action with extra features"
 
 author: "xt0rted"
 

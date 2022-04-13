@@ -78,3 +78,6 @@ runs:
         if [ "${{ steps.meta.outputs.has-global-json }}" == "true" ]; then
           git checkout -- global.json
         fi
+
+    - shell: bash
+      run: dotnet --list-sdks

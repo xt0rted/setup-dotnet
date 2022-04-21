@@ -29,14 +29,27 @@ inputs:
     description: "Whether prerelease versions should be matched with non-exact versions (for example 5.0.0-preview.6 being matched by 5, 5.0, 5.x or 5.0.x). Defaults to false if not provided."
     required: false
 
+  colored-output:
+    description: "Sets the required environment variables to force color output from dotnet."
+    default: true
+    required: false
+
   nuget_auth_token:
     description: "Optional authentication token used with `source-url`."
     required: false
+
 
 runs:
   using: "composite"
 
   steps:
+    - shell: bash
+      run: |
+        if [ "${{ inputs.colored-output }}" == "true" ]; then
+          echo "DOTNET_SYSTEM_CONSOLE_ALLOW_ANSI_COLOR_REDIRECTION=true" >> $GITHUB_ENV
+          echo "TERM=xterm" >> $GITHUB_ENV
+        fi
+
     - shell: bash
       run: |
         case "${{ runner.os }}" in

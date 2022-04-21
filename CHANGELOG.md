@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 1.2.0
+
 - Added a `colored-output` setting which sets `DOTNET_SYSTEM_CONSOLE_ALLOW_ANSI_COLOR_REDIRECTION` and `TERM` to force color output. This is set to `true` by default.
 
 ## 1.1.0

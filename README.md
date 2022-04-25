@@ -58,3 +58,7 @@ Name | Default value | Description
 
 All inputs supported by `actions/setup-dotnet` are supported and passed through to it.
 The full list of supported inputs can be seen in the [action.yml](action.yml) file.
+
+## Known issues
+
+1. The step to strip comments from the `global.json` file uses [`npx`](https://docs.npmjs.com/cli/v8/commands/npx) and requires Node.js 16 or newer to work. If you're using an older version of node and don't need this step to run you can disable it with the `strip-comments-from-global-json` setting.

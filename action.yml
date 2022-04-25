@@ -34,6 +34,11 @@ inputs:
     default: true
     required: false
 
+  strip-comments-from-global-json:
+    description: "Whether to strip comments from the `global.json` file."
+    default: true
+    required: false
+
   nuget_auth_token:
     description: "Optional authentication token used with `source-url`."
     required: false
@@ -69,7 +74,7 @@ runs:
 
     - shell: bash
       run: |
-        if [ "${{ steps.meta.outputs.has-global-json }}" == "true" ]; then
+        if [[ "${{ steps.meta.outputs.has-global-json }}" == "true"  && "${{ inputs.strip-comments-from-global-json }}" == "true" ]]; then
           cp global.json global.json.copy
           npx -y strip-json-comments-cli global.json.copy > global.json
           rm global.json.copy
@@ -87,7 +92,7 @@ runs:
 
     - shell: bash
       run: |
-        if [ "${{ steps.meta.outputs.has-global-json }}" == "true" ]; then
+        if [[ "${{ steps.meta.outputs.has-global-json }}" == "true"  && "${{ inputs.strip-comments-from-global-json }}" == "true" ]]; then
           git checkout -- global.json
         fi
 

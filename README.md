@@ -36,7 +36,7 @@ Specifying multiple SDK versions to use.
       6.0.201
 ```
 
-Speficying a custom source and auth token.
+Specifying a custom source and auth token.
 
 ```yml
 - name: Set up .NET
@@ -45,6 +45,14 @@ Speficying a custom source and auth token.
     source-url: https://nuget.pkg.github.com/xt0rted/index.json
     nuget_auth_token: ${{ secrets.GITHUB_TOKEN }}
 ```
+
+## Options
+
+Name | Default value | Description
+-- | -- | --
+`colored-output` | `true` | Sets the required environment variables to force color output from dotnet.
+`nuget_auth_token` | `""` | Optional authentication token used with `source-url`.
+`strip-comments-from-global-json` | `true` | Whether to strip comments from the `global.json` file.
 
 > ℹ️ This action requires passing `nuget_auth_token` as an input not an environment variable.
 

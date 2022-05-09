@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Bumped `actions/setup-dotnet` from 2.0.0 to 2.1.0
+  - Adds new `global-json-file` setting
+
 ## 1.3.0
 
 - Added a `strip-comments-from-global-json` setting that can turn on/off the step that strips comments from the `global.json` file. This is set to `true` by default.

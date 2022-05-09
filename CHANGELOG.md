@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 1.4.0
+
 - Bumped `actions/setup-dotnet` from 2.0.0 to 2.1.0
   - Adds new `global-json-file` setting
 

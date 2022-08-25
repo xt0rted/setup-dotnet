@@ -20,7 +20,7 @@ Specifying a single SDK version to use.
 ```yml
 - name: Set up .NET
   uses: xt0rted/setup-dotnet@v1.0.0
-  with
+  with:
     dotnet-version: 6.0.201
 ```
 
@@ -29,7 +29,7 @@ Specifying multiple SDK versions to use.
 ```yml
 - name: Set up .NET
   uses: xt0rted/setup-dotnet@v1.0.0
-  with
+  with:
     dotnet-version: |
       3.1.417
       5.0.406

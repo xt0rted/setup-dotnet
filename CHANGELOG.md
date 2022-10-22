@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Replaced `set-output` commands with environment files
+
 ## 1.4.0
 
 - Bumped `actions/setup-dotnet` from 2.0.0 to 2.1.0

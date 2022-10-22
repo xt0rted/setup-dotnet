@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 1.5.0
+
 - Replaced `set-output` commands with environment files
 
 ## 1.4.0

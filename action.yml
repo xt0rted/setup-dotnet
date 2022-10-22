@@ -71,9 +71,9 @@ runs:
       id: meta
       run: |
         if [[ -f "global.json" ]]; then
-          echo "::set-output name=has-global-json::true"
+          echo "has-global-json=true" >> $GITHUB_OUTPUT
         else
-          echo "::set-output name=has-global-json::false"
+          echo "has-global-json=false" >> $GITHUB_OUTPUT
         fi
 
     - shell: bash
